@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Trisha Nicole</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a010f;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1rem;
+      color: #f0eaff;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #0c0712;
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 105, 180, 0.2);
+    }
+
+    hr {
+      margin: 0.8rem 0 1.5rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #ff69b4, #b026ff, #2a0f2a);
+    }
+
+    /* header with logo image */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-image-container {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff69b4, #b026ff);
+      padding: 3px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .logo-image-container:hover {
+      transform: scale(1.02);
+    }
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #1e142b;
+      display: block;
+    }
+
+    .logo-text {
+      flex: 1;
+    }
+    .logo-name {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff99cc, #c45eff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      cursor: pointer;
+      display: inline-block;
+      letter-spacing: -0.3px;
+    }
+    .logo-name:hover {
+      opacity: 0.8;
+    }
+    .tagline {
+      font-size: 0.75rem;
+      color: #b289c2;
+      margin-top: 0.2rem;
+    }
+    .image-hint {
+      font-size: 0.65rem;
+      color: #ff9ad5;
+      margin-top: 5px;
+      background: #1e142b;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    /* sections */
+    .section {
+      background: #110b18;
+      border-radius: 1.25rem;
+      margin-bottom: 1rem;
+      border: 1px solid #2a1d34;
+      transition: all 0.2s;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+      background: #110b18;
+    }
+    .section-header:hover {
+      background: #1e142b;
+      border-left: 3px solid #ff69b4;
+      padding-left: calc(1.5rem - 3px);
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #ffc0e8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title span {
+      font-size: 1.3rem;
+    }
+
+    .arrow {
+      font-size: 1.2rem;
+      color: #c084fc;
+      transition: transform 0.25s ease;
+    }
+
+    .section-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 1.5rem;
+      transition: max-height 0.4s ease-out, opacity 0.3s ease, padding 0.2s;
+      background: #0d0714;
+      border-top: none;
+      color: #ddd6e8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .section.open .section-content {
+      max-height: 1000px;
+      opacity: 1;
+      padding: 0 1.5rem 1.3rem 1.5rem;
+      border-top: 1px solid #ff69b430;
+    }
+
+    .section.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* IMAGE GRID - flexible */
+    .image-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    /* para sa 2 columns */
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    /* para sa 3 columns */
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    /* para sa 1 column */
+    .grid-1 {
+      grid-template-columns: 1fr;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .image-card {
+      background: #1a1225;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid #3a2a4a;
+      transition: transform 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .image-card:hover {
+      transform: translateY(-4px);
+      border-color: #ff69b4;
+    }
+    .grid-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: #2a1d34;
+    }
+    .image-label {
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #c29fda;
+      background: #0d0714;
+      border-top: 1px solid #2a1d34;
+    }
+    .image-upload-hint {
+      font-size: 0.7rem;
+      color: #ff9ad5;
+      margin-top: 0.8rem;
+      text-align: center;
+      background: #1e142b;
+      padding: 0.3rem;
+      border-radius: 20px;
+    }
+
+    /* text styles */
+    .detail-text {
+      margin-top: 0.8rem;
+    }
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+      border-bottom: 1px dashed #2a1d34;
+      padding-bottom: 0.4rem;
+    }
+    .info-label {
+      font-weight: 600;
+      min-width: 110px;
+      color: #ff9ad5;
+    }
+    .info-value {
+      color: #e0d4f0;
+    }
+    .sub-section {
+      margin-top: 1rem;
+    }
+    .sub-title {
+      color: #ffb3e6;
+      font-weight: 600;
+      margin: 0.8rem 0 0.4rem 0;
+      letter-spacing: 0.5px;
+      border-left: 3px solid #ff69b4;
+      padding-left: 10px;
+    }
+    .list-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+    .list-tag {
+      background: #1e142b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #f0d5ff;
+    }
+    .contact-row {
+      margin: 0.6rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .contact-label {
+      font-weight: 600;
+      min-width: 75px;
+      color: #ff9ad5;
+    }
+    .contact-value a {
+      color: #dbbaff;
+      text-decoration: none;
+      border-bottom: 1px dotted #ff69b4;
+    }
+    .contact-value a:hover {
+      color: #ff69b4;
+    }
+
+    .future-vision {
+      background: linear-gradient(135deg, #1e142b, #0d0714);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      border-left: 4px solid #ff69b4;
+      line-height: 1.6;
+    }
+
+    .small-note {
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: #b289c2;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #6f5582;
+    }
+
+    @media (max-width: 550px) {
+      .container {
+        padding: 1.5rem;
+      }
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .info-label {
+        min-width: 90px;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff69b4dd;
+      backdrop-filter: blur(8px);
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #0a010f;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="profile-header">
+    <div class="logo-image-container" id="logoImageClick">
+      <img class="logo-img" src="niclogo.jpg.jpeg" alt="Nicole Logo" id="logoImage">
+    </div>
+    <div class="logo-text">
+      <div class="logo-name" id="logoNameBtn"> Nicole's Website </div>
+    </div>
+  </div>
+  <hr>
+
+
+  <div class="section" id="aboutSection">
+    <div class="section-header">
+      <div class="section-title"><span>📷</span> ABOUT ME</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="detail-text">
+        <div class="info-grid">
+          <div class="info-row"><span class="info-label">Full Name:</span><span class="info-value">Trisha Nicole T. Zagala</span></div>
+          <div class="info-row"><span class="info-label">Age:</span><span class="info-value">18 years old</span></div>
+          <div class="info-row"><span class="info-label">Date of Birth:</span><span class="info-value">June 25, 2007</span></div>
+          <div class="info-row"><span class="info-label">Gender:</span><span class="info-value">Female</span></div>
+          <div class="info-row"><span class="info-label">Boyfriend's Name:</span><span class="info-value">Patrickyael Florencio</span></div>
+          <div class="info-row"><span class="info-label">Nationality:</span><span class="info-value">Filipino</span></div>
+          <div class="info-row"><span class="info-label">Religion:</span><span class="info-value">Roman Catholic</span></div>
+        </div>
+        <div class="sub-section"><div class="sub-title">🎀 Hobbies</div><div class="list-items"><span class="list-tag">Cooking</span><span class="list-tag">Cleaning</span><span class="list-tag">Walking</span><span class="list-tag">Online Games</span><span class="list-tag">Watching entertainment videos</span><span class="list-tag">Singing</span></div></div>
+        <div class="sub-section"><div class="sub-title">🍛 Favorite Food</div><div class="list-items"><span class="list-tag">Chicken Curry</span><span class="list-tag">Shawarma</span><span class="list-tag">Adobo</span><span class="list-tag">Sinigang</span></div></div>
+        <div class="sub-section"><div class="sub-title">🎵 Favorite Songs</div><div class="list-items"><span class="list-tag">Yesterday once more</span><span class="list-tag">Everything I Own</span><span class="list-tag">Risk it all</span></div></div>
+        <div class="sub-section"><div class="sub-title">🎬 Favorite Movies</div><div class="list-items"><span class="list-tag">The Notebook</span><span class="list-tag">The Hows Of Us</span></div></div>
+      </div>
+      <div class="small-note">🌸 "capturing little joys — that's my street photography vibe"</div>
+    </div>
+  </div>
+
+  
+  <div class="section" id="contactSection">
+    <div class="section-header">
+      <div class="section-title"><span>📞</span> CONTACT INFORMATION</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="contact-row"><span class="contact-label">Email:</span><span class="contact-value"><a href="#" id="emailLink">Trishanicolezagala5@gmail.com</a></span></div>
+      <div class="contact-row"><span class="contact-label">Instagram:</span><span class="contact-value"><a href="#" id="igLink">@nicolezagala</a></span></div>
+      <div class="contact-row"><span class="contact-label">Facebook:</span><span class="contact-value"><a href="#" id="facebookLink">Trisha Nicole Zagala</a></span></div>
+     
+    </div>
+  </div>
+
+  
+  <div class="section" id="goalSection">
+    <div class="section-header">
+      <div class="section-title"><span>🎯</span> MY GOAL</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="detail-text"><strong>📚 Academic Goal:</strong> To successfully finish my degree in Elementary Education, gain enough knowledge and skills, and become a licensed and effective teacher.</div>
+      <div class="detail-text"><strong>💰 Financial Goal:</strong> To achieve financial stability, manage my income wisely, support my needs and help my family.</div>
+      <div class="detail-text"><strong>💖 Life Goal:</strong> To live a happy, balanced life, grow as a person, build meaningful relationships, and make a positive impact on my future students.</div>
+
+    </div>
+  </div>
+
+  
+  <div class="section" id="futureSection">
+    <div class="section-header">
+      <div class="section-title"><span>🌱</span> MY FUTURE ME</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="future-vision">
+        I see myself as a graduate of Elementary Education and a licensed professional teacher who is confident and passionate in teaching young learners. I am able to use the knowledge and skills I gained in college to guide and inspire my students in a meaningful way. I also see myself having a stable job with a steady income, managing my finances wisely, and being able to support my needs and help my family. At the same time, I am living a happy and balanced life, continuously growing as a person, building strong and meaningful relationships, and making a positive impact on others, especially my future students.
+      </div>
+     
+    </div>
+  </div>
+
+  
+  <div class="section" id="envSection">
+    <div class="section-header">
+      <div class="section-title"><span>🔍</span> ENVIRONMENT</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="image-grid grid-2" id="envGrid">
+        <div class="image-card"><img class="grid-img" src="daylight.jpeg" alt="Environment 1" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=🌿+Image+1'"><div class="image-label">GOD DAMN</div></div>
+        <div class="image-card"><img class="grid-img" src="wholesome.jpeg" alt="Environment 2" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=🌆+Image+2'"><div class="image-label">DARK</div></div>
+      </div>
+     
+    </div>
+  </div>
+
+ 
+  <div class="section" id="streetSection">
+    <div class="section-header">
+      <div class="section-title"><span>📸</span> STREET PHOTOGRAPHY</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="detail-text">
+        Tired San Mateo Municipal College students walk slowly under the intense heat of the sun, wearing their matching academic uniforms that symbolize both unity and responsibility. Their faces show a mix of exhaustion and determination as they move from one class to another, carrying the weight of academic demands and daily challenges. It’s a simple yet relatable moment of student life—nothing overly dramatic, but a real and honest reflection of the effort, resilience, and dedication that comes with being a college student.
+      </div>
+      <div class="image-grid grid-1" id="streetGrid">
+        <div class="image-card"><img class="grid-img" src="street.jpeg" alt="Street Photo" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=📸+My+Favorite+Shot'"><div class="image-label">HEAT THE BEAT</div></div>
+      </div>
+     
+    </div>
+  </div>
+
+  
+  <div class="section" id="thankyouSection">
+    <div class="section-header">
+      <div class="section-title"><span>❤️</span> THANK YOU</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-content">
+      <div class="detail-text">
+        Thank you for visiting my little space on the web. Every view means the world to me. Stay kind, keep creating, and never stop chasing the light.
+      </div>
+      <div class="image-grid grid-3" id="thankyouGrid">
+        <div class="image-card"><img class="grid-img" src="thankyou1.jpeg" alt="Thank you 1" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=💖+Gratitude'"><div class="image-label">FRIENDS</div></div>
+        <div class="image-card"><img class="grid-img" src="thankyou2.jpeg" alt="Thank you 2" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=🌸+Blessing'"><div class="image-label">FRIENDS</div></div>
+        <div class="image-card"><img class="grid-img" src="thankyou4.jpeg" alt="Thank you 3" onerror="this.src='https://placehold.co/400x400/2a1d34/ffc0e8?text=✨+Hope'"><div class="image-label">MAHAL SA BUHAY</div></div>
+      </div>
+      
+  </div>
+
+  <footer>Nicole's Website</footer>
+</div>
+
+<div id="clickToast" class="toast-msg">✨ opened ✨</div>
+
+<script>
+  // toast notification
+  const toast = document.getElementById('clickToast');
+  let toastTimeout;
+  function showToast(message = '✨ info revealed ✨') {
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toastTimeout = setTimeout(() => { toast.style.opacity = '0'; }, 1000);
+  }
+
+  // toggle sections
+  function setupToggle(sectionId, customMessage) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    const header = section.querySelector('.section-header');
+    if (!header) return;
+    header.addEventListener('click', (e) => {
+      e.stopPropagation();
+      section.classList.toggle('open');
+      const isOpen = section.classList.contains('open');
+      showToast(isOpen ? customMessage : `🔒 ${sectionId.replace('Section','').toUpperCase()} closed`);
+    });
+  }
+
+  setupToggle('aboutSection', '📖 ABOUT ME — Trisha’s world revealed');
+  setupToggle('contactSection', '📞 CONTACT info — let’s connect');
+  setupToggle('goalSection', '🎯 MY GOAL — purpose & dreams');
+  setupToggle('futureSection', '🌱 MY FUTURE ME — dreams & vision');
+  setupToggle('envSection', '🔍 ENVIRONMENT — 2 na larawan');
+  setupToggle('streetSection', '📸 STREET PHOTOGRAPHY — text + 1 image');
+  setupToggle('thankyouSection', '❤️ THANK YOU — 3 images & gratitude');
+
+  
+  const logoName = document.getElementById('logoNameBtn');
+  if (logoName) {
+    logoName.addEventListener('click', () => {
+      showToast('⭐ NICOLE BISTRO — scroll to top ⭐');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  const logoImgContainer = document.getElementById('logoImageClick');
+  if (logoImgContainer) {
+    logoImgContainer.addEventListener('click', () => {
+      showToast('🌸 Nicole Logo 🌸');
+    });
+  }
+
+  
+  const emailLink = document.getElementById('emailLink');
+  if (emailLink) emailLink.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); showToast('📧 email copied'); navigator.clipboard?.writeText('Trishanicolezagala5@gmail.com'); });
+  const igLink = document.getElementById('igLink');
+  if (igLink) igLink.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); showToast('📸 opening instagram'); window.open('https://www.instagram.com/nicolezagala', '_blank'); });
+  const fbLink = document.getElementById('facebookLink');
+  if (fbLink) fbLink.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); showToast('📘 opening facebook'); window.open('https://www.facebook.com/', '_blank'); });
+
+</script>
+</body>
+</html>
